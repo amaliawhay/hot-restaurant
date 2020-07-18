@@ -28,7 +28,7 @@
           We only have 5 tables! Book your seat before they
           all are gone!
         </h2>
-        <br />
+        <br></br>
 
         <div class="text-center">
           <a href="tables.html"><button class="btn btn-lg btn-primary"><span class="fa fa-list-alt"></span> View Tables</button></a>
@@ -132,23 +132,42 @@
 
             waitList.append(listItem);
           }
-        });
-      }
 
-      // This function resets all of the data in our tables. This is intended to let you restart a demo.
-      function clearTable() {
-        alert("Clearing...");
+          function runWaitListQuery() {
+            // The AJAX function uses the URL of our API to GET the data associated with it (initially set to localhost)
+            $.ajax({ url: "/api/waitlist", method: "GET" }).then(function (
+              waitData
+            ) {
+              // Here we then log the waitlistData to console, where it will show up as an object.
+              console.log(waitData);
+              console.log("------------------------------------");
 
-        // Clear the tables on the server and then empty the elements on the client
-        $.ajax({ url: "/api/clear", method: "POST" }).then(
-          function () {
-            $("#waitList").empty();
-            $("#tableList").empty();
+              // Loop through and display each of the customers
+              for (var i = 0; i < waitData.length; i++) {
+                // Get a reference to the waitList element and populate it with tables
+                var waitList = $("#waitList");
+
+                // Then display the fields in the HTML (Section Name, Date, URL)
+                var listItem = $("<li class='list-group-item mt-4'>");
+
+                listItem.append(
+                  $("<h2>").text("Table #" + (i + 1)),
+                  $("<hr>"),
+                  $("<h2>").text("ID: " + waitData[i].customerID),
+                  $("<h2>").text("Name: " + waitData[i].customerName),
+                  $("<h2>").text("Email: " + waitData[i].customerEmail),
+                  $("<h2>").text("Phone: " + waitData[i].phoneNumber)
+                );
+
+                waitList.append(listItem);
+              }
+            });
           }
-        );
-      }
 
-      $("#clear").on("click", clearTable);
+          // This function resets all of the data in our tables. This is intended to let you restart a demo.
+          function clearTable() {
+            alert("Clearing...");
+
 
       // Run Queries!
       // ==========================================
