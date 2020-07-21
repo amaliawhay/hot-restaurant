@@ -30,53 +30,36 @@ app.get("/tables", function (req, res) {
 app.get("/api/tables", function (req, res) {
   return res.json(tables);
 });
-//-------------------------------------------------------------------------------------------------
-app.post("/api/clear", function (req, res) {
-  var clearTable = req.body;
 
-  // Using a RegEx Pattern to remove spaces from newCharacter
-  // You can read more about RegEx Patterns later https://www.regexbuddy.com/regex.html
-  // newTable.name = newTable.routeName.replace(/\s+/g, "").toLowerCase();
-
-  console.log(clearTable);
-
-  waitList.push(clearTable);
-
-  res.json(clearTable);
-});
-
-// app.delete("/api/clear", function (req, res) {
-//   res.send("Got a DELETE request at /api/clear");
-// });
-//--------------------------------------------------------------------------------------------------
 app.get("/api/waitlist", function (req, res) {
   return res.json(waitList);
 });
 
-app.get("/api/tables/:table", function (req, res) {
-  var chosen = req.params.table;
+//-------------------------------------------------------------------------------------------------
 
-  console.log(chosen);
+app.post("/api/clear", function (req, res) {
+  var clearTable = req.body;
 
-  for (var i = 0; i < waitList.length; i++) {
-    if (chosen === waitList[i].costumerId) {
-      return res.json(waitList[i]);
-    }
-  }
+  console.log(clearTable);
 
-  return res.json(false);
+  res.json(clearTable);
 });
+
+//--------------------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------
 //post stuff
 app.post("/api/tables", function (req, res) {
-  // req.body hosts is equal to the JSON post sent from the user
-  // This works because of our body parsing middleware
   var newTable = req.body;
 
-  // Using a RegEx Pattern to remove spaces from newCharacter
-  // You can read more about RegEx Patterns later https://www.regexbuddy.com/regex.html
-  // newTable.name = newTable.routeName.replace(/\s+/g, "").toLowerCase();
+  console.log(newTable);
+
+  tables.push(newTable);
+
+  res.json(newTable);
+});
+app.post("/api/waitlist", function (req, res) {
+  var newTable = req.body;
 
   console.log(newTable);
 

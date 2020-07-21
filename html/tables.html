@@ -47,54 +47,54 @@
             <div class="card-header">
               <h4>Current Reservations</h4>
             </div>
-            <div class="card-body">
+            <div class="card-body" id="showTable">
               <ul id="tableList" class="list-group">
                 <li class="list-group-item mt-4">
                   <h2>Table #1</h2>
                   <hr />
-                  <h2>ID: fsdafj</h2>
-                  <h2>Name: fdsaf</h2>
-                  <h2>Email: feja@fdjas.com</h2>
-                  <h2>Phone: 1232</h2>
+                  <h2>ID:</h2>
+                  <h2>Name:</h2>
+                  <h2>Email:</h2>
+                  <h2>Phone:</h2>
                 </li>
                 <li class="list-group-item mt-4">
                   <h2>Table #2</h2>
                   <hr />
-                  <h2>ID: asdfasdfasdf</h2>
-                  <h2>Name: sdfasdfzsd</h2>
-                  <h2>Email: sadfasdfasdf</h2>
-                  <h2>Phone: asdfasdfasdf</h2>
+                  <h2>ID:</h2>
+                  <h2>Name:</h2>
+                  <h2>Email:</h2>
+                  <h2>Phone:</h2>
                 </li>
                 <li class="list-group-item mt-4">
                   <h2>Table #3</h2>
                   <hr />
-                  <h2>ID: dsafasdfasdf</h2>
-                  <h2>Name: asdfasdf</h2>
-                  <h2>Email: fasdfasdf</h2>
-                  <h2>Phone: asdfasdfasd</h2>
+                  <h2>ID:</h2>
+                  <h2>Name:</h2>
+                  <h2>Email:</h2>
+                  <h2>Phone:</h2>
                 </li>
                 <li class="list-group-item mt-4">
                   <h2>Table #4</h2>
                   <hr />
-                  <h2>ID: fasdfasdfasdf</h2>
-                  <h2>Name: asdfasdfasdf</h2>
-                  <h2>Email: dfasdfasdfasd</h2>
-                  <h2>Phone: asdfasdfasdfas</h2>
+                  <h2>ID:</h2>
+                  <h2>Name:</h2>
+                  <h2>Email:</h2>
+                  <h2>Phone:</h2>
                 </li>
                 <li class="list-group-item mt-4">
                   <h2>Table #5</h2>
                   <hr />
-                  <h2>ID: asdfasdfasdf</h2>
-                  <h2>Name: asdfasdfasd</h2>
-                  <h2>Email: asdfasdfasdf</h2>
-                  <h2>Phone: fasdfasdf</h2>
+                  <h2>ID:</h2>
+                  <h2>Name:</h2>
+                  <h2>Email:</h2>
+                  <h2>Phone:</h2>
                 </li>
               </ul>
             </div>
           </div>
 
           <!-- Waiting List Card -->
-          <div class="card mt-4">
+          <div class="card mt-4" id="showWait">
             <div class="card-header">
               <h4>Waiting List</h4>
             </div>
@@ -103,18 +103,18 @@
                 <li class="list-group-item mt-4">
                   <h2>Table #1</h2>
                   <hr />
-                  <h2>ID: asdfsadfasdfasdf</h2>
-                  <h2>Name: asdfasdfasdf</h2>
-                  <h2>Email: asdfasdfasdf</h2>
-                  <h2>Phone: asdfasdfsadf</h2>
+                  <h2>ID:</h2>
+                  <h2>Name:</h2>
+                  <h2>Email:</h2>
+                  <h2>Phone:</h2>
                 </li>
                 <li class="list-group-item mt-4">
                   <h2>Table #2</h2>
                   <hr />
-                  <h2>ID: 123123</h2>
-                  <h2>Name: dwaq</h2>
-                  <h2>Email: awdad</h2>
-                  <h2>Phone: awdadws</h2>
+                  <h2>ID:</h2>
+                  <h2>Name:</h2>
+                  <h2>Email:</h2>
+                  <h2>Phone:</h2>
                 </li>
               </ul>
             </div>
@@ -144,25 +144,29 @@
               // Here we then log the tableData to console, where it will show up as an object.
               console.log(tableData);
               console.log("------------------------------------");
+              if (tableData) {
+                $("#showTable").show();
+                // Loop through and display each of the customers
+                for (var i = 0; i < tableData.length; i++) {
+                  // Get a reference to the tableList element and populate it with tables
+                  var tableList = $("#tableList");
 
-              // Loop through and display each of the customers
-              for (var i = 0; i < tableData.length; i++) {
-                // Get a reference to the tableList element and populate it with tables
-                var tableList = $("#tableList");
+                  // Then display the fields in the HTML (Section Name, Date, URL)
+                  var listItem = $("<li class='list-group-item mt-4'>");
 
-                // Then display the fields in the HTML (Section Name, Date, URL)
-                var listItem = $("<li class='list-group-item mt-4'>");
+                  listItem.append(
+                    $("<h2>").text("Table #" + (i + 1)),
+                    $("<hr>"),
+                    $("<h2>").text("ID: " + tableData[i].customerID),
+                    $("<h2>").text("Name: " + tableData[i].customerName),
+                    $("<h2>").text("Email: " + tableData[i].customerEmail),
+                    $("<h2>").text("Phone: " + tableData[i].phoneNumber)
+                  );
 
-                listItem.append(
-                  $("<h2>").text("Table #" + (i + 1)),
-                  $("<hr>"),
-                  $("<h2>").text("ID: " + tableData[i].customerID),
-                  $("<h2>").text("Name: " + tableData[i].customerName),
-                  $("<h2>").text("Email: " + tableData[i].customerEmail),
-                  $("<h2>").text("Phone: " + tableData[i].phoneNumber)
-                );
-
-                tableList.append(listItem);
+                  tableList.append(listItem);
+                }
+              } else {
+                $("#showTable").hide();
               }
             });
           }
@@ -175,25 +179,29 @@
               // Here we then log the waitlistData to console, where it will show up as an object.
               console.log(waitData);
               console.log("------------------------------------");
+              if (waitData) {
+                $("#showWait").show();
+                // Loop through and display each of the customers
+                for (var i = 0; i < waitData.length; i++) {
+                  // Get a reference to the waitList element and populate it with tables
+                  var waitList = $("#waitList");
 
-              // Loop through and display each of the customers
-              for (var i = 0; i < waitData.length; i++) {
-                // Get a reference to the waitList element and populate it with tables
-                var waitList = $("#waitList");
+                  // Then display the fields in the HTML (Section Name, Date, URL)
+                  var listItem = $("<li class='list-group-item mt-4'>");
 
-                // Then display the fields in the HTML (Section Name, Date, URL)
-                var listItem = $("<li class='list-group-item mt-4'>");
+                  listItem.append(
+                    $("<h2>").text("Table #" + (i + 1)),
+                    $("<hr>"),
+                    $("<h2>").text("ID: " + waitData[i].customerID),
+                    $("<h2>").text("Name: " + waitData[i].customerName),
+                    $("<h2>").text("Email: " + waitData[i].customerEmail),
+                    $("<h2>").text("Phone: " + waitData[i].phoneNumber)
+                  );
 
-                listItem.append(
-                  $("<h2>").text("Table #" + (i + 1)),
-                  $("<hr>"),
-                  $("<h2>").text("ID: " + waitData[i].customerID),
-                  $("<h2>").text("Name: " + waitData[i].customerName),
-                  $("<h2>").text("Email: " + waitData[i].customerEmail),
-                  $("<h2>").text("Phone: " + waitData[i].phoneNumber)
-                );
-
-                waitList.append(listItem);
+                  waitList.append(listItem);
+                }
+              } else {
+                $("#showWait").show();
               }
             });
           }

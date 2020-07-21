@@ -108,13 +108,15 @@
         // depending on if a tables is available or not.
 
         $.post("/api/tables", newReservation, function (data) {
+          console.log(data.customerID);
           // If a table is available... tell user they are booked.
-          if (data) {
+          if (parseInt(data.customerID) < 6) {
             alert("Yay! You are officially booked!");
           }
 
           // If a table is available... tell user they on the waiting list.
           else {
+            $.post("/api/waitlist", newReservation);
             alert("Sorry you are on the wait list");
           }
 
