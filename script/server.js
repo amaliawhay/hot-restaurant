@@ -38,12 +38,10 @@ app.get("/api/waitlist", function (req, res) {
 //-------------------------------------------------------------------------------------------------
 
 app.post("/api/clear", function (req, res) {
-  var clearTable = req.body;
+  waitList.length = 0;
+  tables.length = 0;
 
-  console.log(clearTable);
-  waitList.push(clearTable);
-
-  res.json(clearTable);
+  res.json({ ok: true });
 });
 
 //--------------------------------------------------------------------------------------------------
