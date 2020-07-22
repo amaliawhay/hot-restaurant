@@ -4,6 +4,7 @@ var path = require("path");
 
 var express = require("express");
 var path = require("path");
+const { table } = require("console");
 
 var app = express();
 var PORT = process.env.PORT || 3000;
@@ -38,12 +39,9 @@ app.get("/api/waitlist", function (req, res) {
 //-------------------------------------------------------------------------------------------------
 
 app.post("/api/clear", function (req, res) {
-  var clearTable = req.body;
-
-  console.log(clearTable);
-  waitList.push(clearTable);
-
-  res.json(clearTable);
+  tables.length = 0;
+  waitList.length = 0;
+  res.json({ ok: true });
 });
 
 //--------------------------------------------------------------------------------------------------
