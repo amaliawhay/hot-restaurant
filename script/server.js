@@ -41,6 +41,7 @@ app.post("/api/clear", function (req, res) {
   var clearTable = req.body;
 
   console.log(clearTable);
+  waitList.push(clearTable);
 
   res.json(clearTable);
 });
@@ -50,9 +51,12 @@ app.post("/api/clear", function (req, res) {
 //--------------------------------------------------------------
 //post stuff
 app.post("/api/tables", function (req, res) {
+  // var counter = 0;
+
+  // counter++;
   var newTable = req.body;
 
-  console.log(newTable);
+  console.log(req.body + "this one");
 
   tables.push(newTable);
 
